@@ -228,12 +228,23 @@ tabsetPanel(id = "protocol.comparison",
                br(),
                # download Panel
                wellPanel(
-                 
-                 shinyjs::hidden(
-                   div(id = "empty.protocol1",
-                       p("You need first to save the current protocol and then upload it", style = "color: red")
-                   )  
-                 )))
+                  
+                  #plotOutput("protocol1Pie")
+                 )
+               )
+      
+    ),
+    fluidRow(
+      column(4, offset= 0.5,
+             br(),
+             # download Panel
+             wellPanel(
+               
+               #plotOutput("protocol1Pie")
+             )
+      )
       
     )
+    
   )
+)

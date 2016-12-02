@@ -5,6 +5,7 @@ library(readr)
 library(DT)
 library(shinyjs)
 library(scales)
+library(plotly)
 
 
 shinyServer(function(input, output, session) {
@@ -1406,10 +1407,10 @@ shinyServer(function(input, output, session) {
       values$pr1.total.cost.parent.time <- protocol1.data$total.cost.total.cost.parent.time
       
       protocol1PieLabels <- c("Total cost of medications", "Total cost of professional time", "Total cost of parent time")
-      
+      #values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time
       output$protocol1Pie <- renderPlotly({
         
-        pr1values <- c(values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time)
+        pr1values <- c("10","30","60")
         
         plot_ly(type="pie",values = pr1values, labels = protocol1PieLabels, textinfo="label+value+percent")
       })
@@ -1419,5 +1420,8 @@ shinyServer(function(input, output, session) {
     
     
   })
+  
+  
+  
 })
 

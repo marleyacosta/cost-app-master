@@ -231,18 +231,15 @@ tabsetPanel(id = "protocol.comparison",
                   
                   #plotOutput("protocol1Pie")
                  )
+               ),
+        column(4, offset= 0.5,
+               br(),
+               # download Panel
+               wellPanel(
+                 
+                 #plotOutput("protocol1Pie")
                )
-      
-    ),
-    fluidRow(
-      column(4, offset= 0.5,
-             br(),
-             # download Panel
-             wellPanel(
-               
-               #plotOutput("protocol1Pie")
-             )
-      )
+        )
       
     )
     

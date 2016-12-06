@@ -1427,14 +1427,6 @@ shinyServer(function(input, output, session) {
         pie + coord_polar(theta = "y") + theme_void()
       })
       
-      
-      
-      
-      
-     
-    
-      
-      
     }
     
     
@@ -1447,25 +1439,25 @@ shinyServer(function(input, output, session) {
   
   # observe({
   #   
-  # #  protocol2.data <- values$protocol.data
+  # 
   #   
-  #   if(length(protocol2.data) > 0){
+  #   if(length(values$protocol2.data) > 0){
   #     
   #     
-  #     print(length(protocol2.data))
+  #    
   #     
   #     
   #     # Bar Graph
-  #     values$pr2.total.explicit.cost <- protocol2.data$total.explicit.cost
-  #     values$pr2.total.implicit.cost <- protocol2.data$total.implicit.cost
+  #     values$pr2.total.explicit.cost <- values$protocol2.data$total.explicit.cost
+  #     values$pr2.total.implicit.cost <- values$protocol2.data$total.implicit.cost
   #     values$pr2.total.combined.cost <- values$pr2.total.explicit.cost + values$pr2.total.implicit.cost
   #     
   #     
   #     
   #     # Pie Chart
-  #     values$pr2.total.cost.medications <-  protocol2.data$total.cost.medications
-  #     values$pr2.total.cost.professional.time <- protocol2.data$total.cost.professional.time
-  #     values$pr2.total.cost.parent.time <- protocol2.data$total.cost.total.cost.parent.time
+  #     values$pr2.total.cost.medications <-  values$protocol2.data$total.cost.medications
+  #     values$pr2.total.cost.professional.time <- values$protocol2.data$total.cost.professional.time
+  #     values$pr2.total.cost.parent.time <- values$protocol2.data$total.cost.total.cost.parent.time
   #     
   #     protocol2PieLabels <- c("Total cost of medications", "Total cost of professional time", "Total cost of parent time")
   #     #values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time
@@ -1487,23 +1479,22 @@ shinyServer(function(input, output, session) {
   
   # observe({
   #   
-  # #  protocol3.data <- values$protocol.data
+  # 
   #   
-  #   if(length(protocol3.data) > 0){
+  #   if(length(values$protocol3.data) > 0){
   #     
-  #     print(length(protocol3.data))
   #           
   #     # Bar Graph
-  #     values$pr3.total.explicit.cost <- protocol3.data$total.explicit.cost
-  #     values$pr3.total.implicit.cost <- protocol3.data$total.implicit.cost
+  #     values$pr3.total.explicit.cost <- values$protocol3.data$total.explicit.cost
+  #     values$pr3.total.implicit.cost <- values$protocol3.data$total.implicit.cost
   #     values$pr3.total.combined.cost <- values$pr3.total.explicit.cost + values$pr3.total.implicit.cost
   #     
   #     
   #     
   #     # Pie Chart
-  #     values$pr3.total.cost.medications <-  protocol3.data$total.cost.medications
-  #     values$pr3.total.cost.professional.time <- protocol3.data$total.cost.professional.time
-  #     values$pr3.total.cost.parent.time <- protocol3.data$total.cost.total.cost.parent.time
+  #     values$pr3.total.cost.medications <-  values$protocol3.data$total.cost.medications
+  #     values$pr3.total.cost.professional.time <- values$protocol3.data$total.cost.professional.time
+  #     values$pr3.total.cost.parent.time <- values$protocol3.data$total.cost.total.cost.parent.time
   #     
   #     protocol3PieLabels <- c("Total cost of medications", "Total cost of professional time", "Total cost of parent time")
   #     #values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time

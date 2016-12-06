@@ -1419,7 +1419,7 @@ shinyServer(function(input, output, session) {
       
       output$protocol1Pie <- renderPlot({
         
-        data <- df <- data.frame(origin=c('with','without'),value=c(24536,50456)) 
+        data <- data.frame(origin=c('with','without'),value=c(24536,50456)) 
         
         pie <- ggplot(data, aes(x = factor(1))) +
           geom_bar(width = 1)

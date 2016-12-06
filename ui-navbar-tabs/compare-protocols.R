@@ -228,7 +228,7 @@ tabsetPanel(id = "protocol.comparison",
                               br(),
                               # download Panel
                               wellPanel(
-                                plotOutput("protocol1Bar"),
+                                #plotOutput("protocol1Bar"),
                                 plotOutput("protocol1Pie")
                               )
                        ),

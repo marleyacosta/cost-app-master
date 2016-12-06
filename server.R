@@ -1417,9 +1417,6 @@ shinyServer(function(input, output, session) {
       values$pr1.total.cost.professional.time <- values$protocol1.data$total.cost.professional.time
       values$pr1.total.cost.parent.time <- values$protocol1.data$total.cost.total.cost.parent.time
       
-      output$fixPay <- renderText({
-        paste("test")
-        })
       
       output$protocol1Pie <- renderPlot({
         

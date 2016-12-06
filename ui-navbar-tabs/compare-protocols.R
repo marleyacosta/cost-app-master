@@ -228,7 +228,7 @@ tabsetPanel(id = "protocol.comparison",
                               br(),
                               # download Panel
                               wellPanel(
-                                
+                                plotOutput("protocol1Bar"),
                                 plotOutput("protocol1Pie")
                               )
                        ),
@@ -251,75 +251,4 @@ tabsetPanel(id = "protocol.comparison",
                        
                      )
                      
-<<<<<<< HEAD
-                   ) #close fluidRow 
-                 ), # close wellPanel
-                 
-                 wellPanel(
-                   
-                   h4(tags$b(textOutput("protocol3.name")),  style = "color: #4177b7"),
-                 
-                   tableOutput('protocol3.summary_1'),
-                # tags$style(type="text/css", "#protocol3.summary_1 table {background-color: #CBA135}", media="screen"),
-                # tags$style(type="text/css", "#protocol3.summary_1 tr:last-child {font-weight:bold; color: white}"),
-                 
-                 
-                  tableOutput('protocol3.summary_2')
-                # tags$head(tags$style("#protocol3.summary_2 table {background-color: #CBA135}", media="screen", type="text/css"))
-                 
-               ),
-               wellPanel(
-                 tableOutput('protocol3.summary_3'),
-                 
-                 tableOutput('protocol3.summary_4')
-                 
-               ),
-               wellPanel(
-                 
-                 tableOutput('protocol3.summary_5'),
-                 
-                 tableOutput('protocol3.summary_6')
-                 
-               )  
-               
-               
-             ) 
-       ) # close fluidRow     
-             
-    ), # close tabPanel         
-                  
-    tabPanel("Plots",
-      tableOutput('contents'),
-      fluidRow(
-        column(4, offset= 0.5,
-               br(),
-               # download Panel
-             
-                  plotOutput("protocol1Bar"),
-                  plotOutput("protocol1Pie")
-                 
-               ),
-        column(4, offset= 0.5,
-               br(),
-               # download Panel
-               wellPanel(
-                 
-                 plotOutput("protocol2Pie")
-               )
-        ),
-        column(4, offset= 0.5,
-               br(),
-               # download Panel
-               wellPanel(
-                 
-                 plotOutput("protocol3Pie")
-               )
-        )
-      
-    )
-    
-  )
-=======
-            )
->>>>>>> origin/master
 )

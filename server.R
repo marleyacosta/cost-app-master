@@ -844,11 +844,19 @@ shinyServer(function(input, output, session) {
     {
       
       if(length(values$protocol.data) > 0)
+<<<<<<< HEAD
         
         shinyjs::enable("upload.protocol1")
       
       else 
         
+=======
+        
+        shinyjs::enable("upload.protocol1")
+      
+      else 
+        
+>>>>>>> origin/master
         shinyjs::disable("upload.protocol1")
     }  
     
@@ -952,6 +960,7 @@ shinyServer(function(input, output, session) {
       if(input$upload.options.prt1 == "upload.just.saved")
         
         values$protocol1.data <- values$protocol.data 
+<<<<<<< HEAD
       
       else # input$upload.options.prt1 = "upload.from.rds"
         
@@ -979,6 +988,35 @@ shinyServer(function(input, output, session) {
       
       shinyjs::hide(id = "empty.protocol1")  
       
+=======
+      
+      else # input$upload.options.prt1 = "upload.from.rds"
+        
+      {
+        
+        if (!is.null(input$file.protocol1)){
+          
+          values$protocol1.data <- UploadProtocolFromRDSToList(input$file.protocol1)
+          shinyjs::hide(id = "RDSfile1")
+        }
+        
+      } # close else
+      
+      
+      if(length(values$protocol1.data) == 0){
+        
+        print("The list is empty")
+        
+        shinyjs::show(id = "empty.protocol1")
+        
+        return()
+        
+      }
+      
+      
+      shinyjs::hide(id = "empty.protocol1")  
+      
+>>>>>>> origin/master
       # Protocol Name
       
       output$protocol1.name <- renderText({
@@ -1392,10 +1430,20 @@ shinyServer(function(input, output, session) {
   ##############
   observe({
     
+<<<<<<< HEAD
     
     if(length(values$protocol1.data) > 0){
       
 
+=======
+    # protocol1.data <- values$protocol.data
+    
+    print(values$protocol1.data)
+    
+    if(length(values$protocol1.data) > 0){
+      
+      print("inside the plot code")
+>>>>>>> origin/master
       
       
       # Bar Graph

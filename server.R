@@ -6,7 +6,7 @@ library(DT)
 library(shinyjs)
 library(scales)
 library(plotly)
-
+library(ggplot2)
 
 shinyServer(function(input, output, session) {
   
@@ -50,8 +50,8 @@ shinyServer(function(input, output, session) {
   
   UpdateSummaryByPersonAndParent()
   
-
- # Synchronize the Input and Output tabsetPanels
+  
+  # Synchronize the Input and Output tabsetPanels
   
   observeEvent(input$in.components, {
     updateTabsetPanel(session, "out.components",
@@ -65,12 +65,12 @@ shinyServer(function(input, output, session) {
     )
   })
   
- 
+  
   ###################################################################################################
   # CRUD for Individual Treatment Components
   #
   ###################################################################################################
- 
+  
   
   # Get the current inputs with names defined in the TableMetadata for Individual Treatments
   
@@ -79,16 +79,16 @@ shinyServer(function(input, output, session) {
   })
   
   
- #####################################################################################################
- # Uncommment for debugging 
- #   output$mytable.ind.1 <- renderTable({
- #      as.data.frame(formDataIndivTreatment())
- #   })
- #
- #   output$mytable.ind.2<-renderTable({ 
- #      as.data.frame(ReadDataIndivTreatment()[input$data.table.ind.treatment_rows_selected, ])
- #   })
- ####################################################################################################
+  #####################################################################################################
+  # Uncommment for debugging 
+  #   output$mytable.ind.1 <- renderTable({
+  #      as.data.frame(formDataIndivTreatment())
+  #   })
+  #
+  #   output$mytable.ind.2<-renderTable({ 
+  #      as.data.frame(ReadDataIndivTreatment()[input$data.table.ind.treatment_rows_selected, ])
+  #   })
+  ####################################################################################################
   
   
   # Mandatory fields for Individual Treatments
@@ -141,33 +141,33 @@ shinyServer(function(input, output, session) {
   
   
   # Click "Submit" button to save the data
-   observeEvent(input$submit.ind, {
-     
-     if (input$id.ind != "0") {
-       UpdateDataIndivTreatment(formDataIndivTreatment(), session)
-    #  input$cost.ind <-ReadDataIndivTreatment()[input$data.table.ind.treatment_rows_selected, ]["cost.ind"]  
-     } else { #new record
-       CreateDataIndivTreatment(formDataIndivTreatment())
-       UpdateInputsIndivTreatment(CreateDefaultIndivTreatment(), session)
-     }
-     
-     values$df.summary.ind  <- GetSummaryByIndivTreatment()
-     
-     # Update the summary by person and parent lists and costs
-     
-     UpdateSummaryByPersonAndParent()
-     
-     # Show/Hide the Download Table Button
-     
-     if (nrow(ReadDataIndivTreatment()) > 0) { 
-       shinyjs::show("download.table.ind.treatment")
-     } else {
-       shinyjs::hide("download.table.ind.treatment")
-     }
-     
-
-     
-   }, priority = 1)
+  observeEvent(input$submit.ind, {
+    
+    if (input$id.ind != "0") {
+      UpdateDataIndivTreatment(formDataIndivTreatment(), session)
+      #  input$cost.ind <-ReadDataIndivTreatment()[input$data.table.ind.treatment_rows_selected, ]["cost.ind"]  
+    } else { #new record
+      CreateDataIndivTreatment(formDataIndivTreatment())
+      UpdateInputsIndivTreatment(CreateDefaultIndivTreatment(), session)
+    }
+    
+    values$df.summary.ind  <- GetSummaryByIndivTreatment()
+    
+    # Update the summary by person and parent lists and costs
+    
+    UpdateSummaryByPersonAndParent()
+    
+    # Show/Hide the Download Table Button
+    
+    if (nrow(ReadDataIndivTreatment()) > 0) { 
+      shinyjs::show("download.table.ind.treatment")
+    } else {
+      shinyjs::hide("download.table.ind.treatment")
+    }
+    
+    
+    
+  }, priority = 1)
   
   
   # Select row in table -> show details in inputs
@@ -176,10 +176,10 @@ shinyServer(function(input, output, session) {
     if (length(input$data.table.ind.treatment_rows_selected) > 0) {
       data <- ReadDataIndivTreatment()[input$data.table.ind.treatment_rows_selected, ]
       UpdateInputsIndivTreatment(data, session)
-    
+      
       if ( data["person2.ind"] != "" && data["person2.ind"] != "N/A" )
         shinyjs::show(id = "p2.ind", anim = TRUE)
-       else
+      else
         shinyjs::hide(id = "p2.ind", anim = TRUE) 
       
       if ( data["person3.ind"] != "" &&  data["person3.ind"] != "N/A" )
@@ -199,7 +199,7 @@ shinyServer(function(input, output, session) {
       
     }
   })
-    
+  
   # Press "Delete" button -> delete from data
   observeEvent(input$delete.ind, {
     
@@ -221,7 +221,7 @@ shinyServer(function(input, output, session) {
     
     
   }, priority = 1)
-   
+  
   # Press "Reset" button -> display empty record for IndivTreatment
   observeEvent(input$reset.ind, {
     
@@ -230,10 +230,10 @@ shinyServer(function(input, output, session) {
     shinyjs::hide(id = "p3.ind", anim = TRUE)
     shinyjs::hide(id = "p4.ind", anim = TRUE)
     shinyjs::hide(id = "p5.ind", anim = TRUE)
-  
+    
   })
   
- 
+  
   ###################################################################################################
   # CRUD for Group Treatment Components
   #
@@ -261,8 +261,8 @@ shinyServer(function(input, output, session) {
   #  output$mytable.gr.3 <- renderTable({ 
   #    as.data.frame(values$df.gr.treatment)
   #  })
-    
-    
+  
+  
   ####################################################################################################
   
   # Mandatory fields for Individual Treatments
@@ -320,14 +320,14 @@ shinyServer(function(input, output, session) {
   observeEvent(input$submit.gr, {
     
     if (input$id.gr != "0") {
-     
-       UpdateDataGroupTreatment(formDataGroupTreatment(), session)
-    
-     } else { #new record
-     
-        CreateDataGroupTreatment(formDataGroupTreatment())
-        UpdateInputsGroupTreatment(CreateDefaultGroupTreatment(), session)
-     }
+      
+      UpdateDataGroupTreatment(formDataGroupTreatment(), session)
+      
+    } else { #new record
+      
+      CreateDataGroupTreatment(formDataGroupTreatment())
+      UpdateInputsGroupTreatment(CreateDefaultGroupTreatment(), session)
+    }
     
     
     values$df.summary.gr  <- GetSummaryByGroupTreatment()
@@ -339,13 +339,13 @@ shinyServer(function(input, output, session) {
     
     # Hide/Show the Download button
     if (nrow(ReadDataGroupTreatment()) > 0) { 
-    
+      
       shinyjs::show("download.table.gr.treatment")
-    
+      
     } else {
       
       shinyjs::hide("download.table.gr.treatment")
-    
+      
     }
     
   }, priority = 1)
@@ -356,7 +356,7 @@ shinyServer(function(input, output, session) {
   observeEvent(input$data.table.gr.treatment_rows_selected, {
     
     if (length(input$data.table.gr.treatment_rows_selected) > 0) {
-    
+      
       data <- ReadDataGroupTreatment()[input$data.table.gr.treatment_rows_selected, ]
       
       UpdateInputsGroupTreatment(data, session)
@@ -416,15 +416,15 @@ shinyServer(function(input, output, session) {
     shinyjs::hide(id = "p3.gr", anim = TRUE)
     shinyjs::hide(id = "p4.gr", anim = TRUE)
     shinyjs::hide(id = "p5.gr", anim = TRUE)
-  
+    
   })
- 
+  
   
   ###################################################################################################
   # CRUD for Medications
   #
   ###################################################################################################
-
+  
   formDataMedication <- reactive({
     sapply(names(GetTableMetadataMedication()$fields), function(x) input[[x]])
   })
@@ -433,9 +433,9 @@ shinyServer(function(input, output, session) {
   
   observe({
     if (is.null(input$label.med) || input$label.med == ""  || is.null(input$frequency.med)  || is.null(input$week.med) || is.null(input$year.med))
-     {
+    {
       shinyjs::disable("submit.med")
-      } else {
+    } else {
       shinyjs::enable("submit.med")
     }
     
@@ -510,7 +510,7 @@ shinyServer(function(input, output, session) {
   # Press "Reset" button -> display empty record for IndivTreatment
   observeEvent(input$reset.med, {
     UpdateInputsMedication(CreateDefaultMedication(), session)
-
+    
   })
   
   ##################################################################################################
@@ -532,9 +532,9 @@ shinyServer(function(input, output, session) {
   }, server = FALSE, selection = "single", 
   colnames = c("Cost", "Label", "Frequency", "Duration (min)",
                "Person 1", "Person 2", "Person 3", "Person 4", "Person 5"),
-   options = list(sDom  = '<"top">rt<"bottom">ip)',
-                                     autoWidth = TRUE
-                   #                   columnDefs = list(list(width = '50px', targets = "_all"))
+  options = list(sDom  = '<"top">rt<"bottom">ip)',
+                 autoWidth = TRUE
+                 #                   columnDefs = list(list(width = '50px', targets = "_all"))
   ) 
   # to suppress search box
   # <"top">flrt<"bottom">ip - The syntax is a bit quirky, but basically the above says that f, l, r and t options
@@ -579,7 +579,7 @@ shinyServer(function(input, output, session) {
   colnames = unname(GetTableMetadataMedication()$fields)[-1]
   , options = list(sDom  = '<"top">rt<"bottom">ip)') # to suppress search box
   )
-   
+  
   ##################################################################################################
   # Download Data                                                                                  #
   ##################################################################################################
@@ -589,9 +589,9 @@ shinyServer(function(input, output, session) {
   observe({
     if (!is.null(ReadDataIndivTreatment()) && nrow(ReadDataIndivTreatment()) > 0) { 
       shinyjs::show("download.table.ind.treatment")
-     } else {
+    } else {
       shinyjs::hide("download.table.ind.treatment")
-     }
+    }
     if (!is.null(ReadDataGroupTreatment()) && nrow(ReadDataGroupTreatment()) > 0) { 
       shinyjs::show("download.table.gr.treatment")
     } else {
@@ -637,7 +637,7 @@ shinyServer(function(input, output, session) {
   ##################################################################################################
   # Render DataTables for med prices and person wages and compensations                            #
   ##################################################################################################
-
+  
   # Render DataTable for looking up med prices
   output$DT.lookup.meds = DT::renderDataTable({
     df.meds %>%
@@ -645,7 +645,7 @@ shinyServer(function(input, output, session) {
                 rownames = FALSE,
                 options = list(pageLength = 10)) %>%
       formatCurrency("price", digits = 2)
-    })
+  })
   
   # Render DataTable for looking up person wages and compensations
   output$DT.lookup.comps = DT::renderDataTable({
@@ -661,7 +661,7 @@ shinyServer(function(input, output, session) {
                                pageLength = 50),
                 escape = FALSE) %>%
       formatCurrency(c("mean.hourly.wage", "mean.hourly.compensation"), digits = 2)
-    })
+  })
   
   
   ##################################################################################################
@@ -672,9 +672,9 @@ shinyServer(function(input, output, session) {
     
     OutputSummary(GetSummary1(values$med.costs+values$prof.costs, values$parent.costs),  c("", ""))
     
-    },
-    include.colnames=FALSE,
-    include.rownames=FALSE
+  },
+  include.colnames=FALSE,
+  include.rownames=FALSE
   
   )
   
@@ -683,9 +683,9 @@ shinyServer(function(input, output, session) {
     
     OutputSummary(GetSummary2(values$med.costs, values$prof.costs, values$parent.costs),  c("", ""))
     
-    },
-    include.colnames=FALSE,
-    include.rownames=FALSE
+  },
+  include.colnames=FALSE,
+  include.rownames=FALSE
   
   )
   
@@ -694,8 +694,8 @@ shinyServer(function(input, output, session) {
     
     OutputSummary(values$df.summary.ind,  c("By Individual Component", "Cost"))
     
-    }
-    , include.rownames=FALSE
+  }
+  , include.rownames=FALSE
   
   )
   
@@ -704,10 +704,10 @@ shinyServer(function(input, output, session) {
   output$summary_4 <- renderTable({
     
     OutputSummary(values$df.summary.gr,  c("By Group Component", "Cost"))
+    
+  }
   
-    }
-  
-    , include.rownames=FALSE
+  , include.rownames=FALSE
   )
   
   # Persons List
@@ -715,21 +715,21 @@ shinyServer(function(input, output, session) {
   output$summary_5 <- renderTable({
     
     OutputSummary(values$df.summary.person,  c("By Person", "Cost"))
- 
-    }
     
-    , include.rownames=FALSE
+  }
+  
+  , include.rownames=FALSE
   )
   
   # Medication List
   
   output$summary_6 <- renderTable({
-   
-      OutputSummary(values$df.summary.med,  c("By Medication", "Cost"))
-   
-     }
-    , include.rownames=FALSE
- 
+    
+    OutputSummary(values$df.summary.med,  c("By Medication", "Cost"))
+    
+  }
+  , include.rownames=FALSE
+  
   )
   
   ##################################################################################################
@@ -741,10 +741,10 @@ shinyServer(function(input, output, session) {
     filename = function() {
       paste("ADHD-CostCalculatorReport", "_", Sys.Date(), sep = ""
             , switch(input$report.format, PDF = '.pdf', HTML = '.html', Word = '.docx'
-      ))
+            ))
     },
     
-   content = function(file) {
+    content = function(file) {
       src <- normalizePath('report.Rmd')
       
       # temporarily switch to the temp dir, in case you do not have write
@@ -769,11 +769,11 @@ shinyServer(function(input, output, session) {
   observeEvent(input$save.protocol, {
     
     if (input$save.protocol != "0") {
-  
+      
       # Cast Protocol data
       values$protocol.data <- CastProtocolData(input$protocol.name
-                                        , values$med.costs+values$prof.costs, values$parent.costs
-                                        , values$med.costs, values$prof.costs, values$parent.costs)
+                                               , values$med.costs+values$prof.costs, values$parent.costs
+                                               , values$med.costs, values$prof.costs, values$parent.costs)
       
       print(values$protocol.data)
       
@@ -800,60 +800,60 @@ shinyServer(function(input, output, session) {
     },
     
     content = function(file) {
-     
-       print(file) ##prints: [...]\\Local\\Temp\\RtmpEBYDXT\\fileab8c003878.csv
       
-       SaveProtocolToRDS(file, input$protocol.name
+      print(file) ##prints: [...]\\Local\\Temp\\RtmpEBYDXT\\fileab8c003878.csv
+      
+      SaveProtocolToRDS(file, input$protocol.name
                         , values$med.costs+values$prof.costs, values$parent.costs
                         , values$med.costs, values$prof.costs, values$parent.costs)
-       
-  })
+      
+    })
   
   observe({
-  
-  #   
-  #   if(length(values$protocol.data) == 0){
-  #     
-  #     shinyjs::show(id = "empty.protocol1")
-  #     shinyjs::show(id = "empty.protocol2")
-  #     shinyjs::show(id = "empty.protocol3")
-  #     
-  #   
-  #   }  
-  #   
-  #   else {
-  #     
-  #     shinyjs::hide(id = "empty.protocol1") 
-  #     shinyjs::hide(id = "empty.protocol2")
-  #     shinyjs::hide(id = "empty.protocol3")
-  #     
-  #   } 
-  # 
-      
+    
+    #   
+    #   if(length(values$protocol.data) == 0){
+    #     
+    #     shinyjs::show(id = "empty.protocol1")
+    #     shinyjs::show(id = "empty.protocol2")
+    #     shinyjs::show(id = "empty.protocol3")
+    #     
+    #   
+    #   }  
+    #   
+    #   else {
+    #     
+    #     shinyjs::hide(id = "empty.protocol1") 
+    #     shinyjs::hide(id = "empty.protocol2")
+    #     shinyjs::hide(id = "empty.protocol3")
+    #     
+    #   } 
+    # 
+    
     
     if (input$upload.options.prt1 == "upload.from.rds"){
-       
-       if (!is.null(input$file.protocol1))
-         shinyjs::enable("upload.protocol1")
-       else 
-         shinyjs::disable("upload.protocol1")
-     }   
-     
-    else # if (input$upload.options.prt2 == "upload.just.saved" )
- 
-      {
-       
-       if(length(values$protocol.data) > 0)
       
-           shinyjs::enable("upload.protocol1")
+      if (!is.null(input$file.protocol1))
+        shinyjs::enable("upload.protocol1")
+      else 
+        shinyjs::disable("upload.protocol1")
+    }   
     
-       else 
+    else # if (input$upload.options.prt2 == "upload.just.saved" )
+      
+    {
+      
+      if(length(values$protocol.data) > 0)
         
-         shinyjs::disable("upload.protocol1")
-      }  
+        shinyjs::enable("upload.protocol1")
+      
+      else 
+        
+        shinyjs::disable("upload.protocol1")
+    }  
     
     
-     
+    
     if (input$upload.options.prt2 == "upload.from.rds"){
       
       if (!is.null(input$file.protocol2))
@@ -900,7 +900,7 @@ shinyServer(function(input, output, session) {
     
     
     
- })
+  })
   
   
   
@@ -910,38 +910,38 @@ shinyServer(function(input, output, session) {
   ##########################################################################################
   
   observeEvent(input$upload.options.prt1, {
-               
-   if(input$upload.options.prt1 == "upload.from.rds"){
-   
-     shinyjs::show(id = "RDSfile1")
-     shinyjs::hide(id = "empty.protocol1")
-     
-   }   
-   
-    else { # input$upload.options.prt1 == "upload.just.saved"
     
-     shinyjs::hide(id = "RDSfile1")
-     
-     if(length(values$protocol.data) == 0){
-       
-         print("The list is empty")
-         shinyjs::show(id = "empty.protocol1")
+    if(input$upload.options.prt1 == "upload.from.rds"){
+      
+      shinyjs::show(id = "RDSfile1")
+      shinyjs::hide(id = "empty.protocol1")
+      
+    }   
+    
+    else { # input$upload.options.prt1 == "upload.just.saved"
+      
+      shinyjs::hide(id = "RDSfile1")
+      
+      if(length(values$protocol.data) == 0){
+        
+        print("The list is empty")
+        shinyjs::show(id = "empty.protocol1")
         
       } 
       
       else{
-          
-         shinyjs::hide(id = "empty.protocol1")
         
-     }
-   
+        shinyjs::hide(id = "empty.protocol1")
+        
+      }
+      
     }  
     
     print(input$upload.options.prt1)
     
   })    
   
-
+  
   
   observeEvent(input$upload.protocol1, {
     
@@ -950,118 +950,118 @@ shinyServer(function(input, output, session) {
       # upload from the just-saved protocol or from an external file
       
       if(input$upload.options.prt1 == "upload.just.saved")
-    
-         protocol1.data <- values$protocol.data 
-    
-        else # input$upload.options.prt1 = "upload.from.rds"
-    
-         {
-       
-           if (!is.null(input$file.protocol1)){
-             
-             protocol1.data <- UploadProtocolFromRDSToList(input$file.protocol1)
-             shinyjs::hide(id = "RDSfile1")
-         }
-       
-        } # close else
-    
+        
+        values$protocol1.data <- values$protocol.data 
       
-    if(length(protocol1.data) == 0){
+      else # input$upload.options.prt1 = "upload.from.rds"
+        
+      {
+        
+        if (!is.null(input$file.protocol1)){
+          
+          values$protocol1.data <- UploadProtocolFromRDSToList(input$file.protocol1)
+          shinyjs::hide(id = "RDSfile1")
+        }
+        
+      } # close else
       
-      print("The list is empty")
       
-      shinyjs::show(id = "empty.protocol1")
+      if(length(values$protocol1.data) == 0){
+        
+        print("The list is empty")
+        
+        shinyjs::show(id = "empty.protocol1")
+        
+        return()
+        
+      }
       
-      return()
       
-    }
-    
-  
-    shinyjs::hide(id = "empty.protocol1")  
+      shinyjs::hide(id = "empty.protocol1")  
       
-    # Protocol Name
-
-    output$protocol1.name <- renderText({
-
-      paste0("Protocol Name: ", as.character(protocol1.data$protocol.name))
-
-    })
-
-    # Summary 1
-
-    output$protocol1.summary_1 <- renderTable({
-
-      OutputSummary(GetSummary1(as.numeric(protocol1.data$total.explicit.cost)
-                                , as.numeric(protocol1.data$total.implicit.cost)),  c("", ""))
-
-    },
-    include.colnames=FALSE,
-    include.rownames=FALSE
-
-    )
-
-    # Summary 2
-    output$protocol1.summary_2 <- renderTable({
-
-      OutputSummary(GetSummary2(as.numeric(protocol1.data$total.cost.medications)
-                                , as.numeric(protocol1.data$total.cost.professional.time)
-                                , as.numeric(protocol1.data$total.cost.parent.time )),  c("", ""))
-
-    },
-    include.colnames=FALSE,
-    include.rownames=FALSE
-
-    )
-
-
-    # Individual Components List
-    output$protocol1.summary_3 <- renderTable({
-
-      OutputSummary(protocol1.data$ind.component.summary,  c("By Individual Component", "Cost"))
-
-    }
-    , include.rownames=FALSE
-
-    )
-
-    # Group Components List
-
-    output$protocol1.summary_4 <- renderTable({
-
-      OutputSummary(protocol1.data$grp.component.summary,  c("By Group Component", "Cost"))
-
-    }
-
-    , include.rownames=FALSE
-    )
-
-    # Persons List
-
-    output$protocol1.summary_5 <- renderTable({
-
-      OutputSummary(protocol1.data$person.summary,  c("By Person", "Cost"))
-
-    }
-
-    , include.rownames=FALSE
-
-    )
-
-    # Medication List
-
-    output$protocol1.summary_6 <- renderTable({
-
-      OutputSummary(protocol1.data$med.component.summary,  c("By Medication", "Cost"))
-
-    }
-    , include.rownames=FALSE
-
-    )
-
+      # Protocol Name
+      
+      output$protocol1.name <- renderText({
+        
+        paste0("Protocol Name: ", as.character(values$protocol1.data$protocol.name))
+        
+      })
+      
+      # Summary 1
+      
+      output$protocol1.summary_1 <- renderTable({
+        
+        OutputSummary(GetSummary1(as.numeric(values$protocol1.data$total.explicit.cost)
+                                  , as.numeric(values$protocol1.data$total.implicit.cost)),  c("", ""))
+        
+      },
+      include.colnames=FALSE,
+      include.rownames=FALSE
+      
+      )
+      
+      # Summary 2
+      output$protocol1.summary_2 <- renderTable({
+        
+        OutputSummary(GetSummary2(as.numeric(values$protocol1.data$total.cost.medications)
+                                  , as.numeric(values$protocol1.data$total.cost.professional.time)
+                                  , as.numeric(values$protocol1.data$total.cost.parent.time )),  c("", ""))
+        
+      },
+      include.colnames=FALSE,
+      include.rownames=FALSE
+      
+      )
+      
+      
+      # Individual Components List
+      output$protocol1.summary_3 <- renderTable({
+        
+        OutputSummary(values$protocol1.data$ind.component.summary,  c("By Individual Component", "Cost"))
+        
+      }
+      , include.rownames=FALSE
+      
+      )
+      
+      # Group Components List
+      
+      output$protocol1.summary_4 <- renderTable({
+        
+        OutputSummary(values$protocol1.data$grp.component.summary,  c("By Group Component", "Cost"))
+        
+      }
+      
+      , include.rownames=FALSE
+      )
+      
+      # Persons List
+      
+      output$protocol1.summary_5 <- renderTable({
+        
+        OutputSummary(values$protocol1.data$person.summary,  c("By Person", "Cost"))
+        
+      }
+      
+      , include.rownames=FALSE
+      
+      )
+      
+      # Medication List
+      
+      output$protocol1.summary_6 <- renderTable({
+        
+        OutputSummary(values$protocol1.data$med.component.summary,  c("By Medication", "Cost"))
+        
+      }
+      , include.rownames=FALSE
+      
+      )
+      
     }# close input.upload.protocol1
-
+    
   }) # close observe if(input$upload.options.prt1 = "upload.just.saved")
-
+  
   ##########################################################################################
   # Upload the protocol previously saved or from an RDS files for comparison to 
   # the 2-nd Protocol Panel for Comparison
@@ -1387,33 +1387,55 @@ shinyServer(function(input, output, session) {
   # Plots for Protocol Comparison
   ###############################################
   
-  
+  ##############
+  ### Plot 1 ###
+  ##############
   observe({
     
-    protocol1.data <- values$protocol.data
     
-    if(length(protocol1.data) > 0){
+    if(length(values$protocol1.data) > 0){
+      
+
+      
       
       # Bar Graph
-      values$pr1.total.explicit.cost <- protocol1.data$total.explicit.cost
-      values$pr1.total.implicit.cost <- protocol1.data$total.implicit.cost
+      values$pr1.total.explicit.cost <- values$protocol1.data$total.explicit.cost
+      values$pr1.total.implicit.cost <- values$protocol1.data$total.implicit.cost
       values$pr1.total.combined.cost <- values$pr1.total.explicit.cost + values$pr1.total.implicit.cost
       
       
+      output$protocol1Bar <- renderPlot({
+        
+        some.data <- rnorm(values$pr1.total.explicit.cost, values$pr1.total.implicit.cost, values$pr1.total.combined.cost)
+        names(some.data) <- c("Total explicit cost", "Total implicit cost", "Total combined cost.")
+        # Render a barplot
+        barplot(some.data)
+        
+      })
       
       # Pie Chart
-      values$pr1.total.cost.medications <-  protocol1.data$total.cost.medications
-      values$pr1.total.cost.professional.time <- protocol1.data$total.cost.professional.time
-      values$pr1.total.cost.parent.time <- protocol1.data$total.cost.total.cost.parent.time
+      values$pr1.total.cost.medications <-  values$protocol1.data$total.cost.medications
+      values$pr1.total.cost.professional.time <- values$protocol1.data$total.cost.professional.time
+      values$pr1.total.cost.parent.time <- values$protocol1.data$total.cost.total.cost.parent.time
       
-      protocol1PieLabels <- c("Total cost of medications", "Total cost of professional time", "Total cost of parent time")
-      #values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time
-      output$protocol1Pie <- renderPlotly({
+      
+      output$protocol1Pie <- renderPlot({
         
-        pr1values <- c("10","30","60")
         
-        plot_ly(type="pie",values = pr1values, labels = protocol1PieLabels, textinfo="label+value+percent")
+        data <- data.frame(origin=c('with','without'),value=c(24536,50456)) 
+        
+        pie <- ggplot(data, aes(x = factor(1))) +
+          geom_bar(width = 1)
+        pie + coord_polar(theta = "y") + theme_void()
+        
       })
+      
+      
+      
+      
+      
+     
+    
       
       
     }
@@ -1421,6 +1443,85 @@ shinyServer(function(input, output, session) {
     
   })
   
+  ##############
+  ### Plot 2 ###
+  ##############
+  
+  
+  # observe({
+  #   
+  # #  protocol2.data <- values$protocol.data
+  #   
+  #   if(length(protocol2.data) > 0){
+  #     
+  #     
+  #     print(length(protocol2.data))
+  #     
+  #     
+  #     # Bar Graph
+  #     values$pr2.total.explicit.cost <- protocol2.data$total.explicit.cost
+  #     values$pr2.total.implicit.cost <- protocol2.data$total.implicit.cost
+  #     values$pr2.total.combined.cost <- values$pr2.total.explicit.cost + values$pr2.total.implicit.cost
+  #     
+  #     
+  #     
+  #     # Pie Chart
+  #     values$pr2.total.cost.medications <-  protocol2.data$total.cost.medications
+  #     values$pr2.total.cost.professional.time <- protocol2.data$total.cost.professional.time
+  #     values$pr2.total.cost.parent.time <- protocol2.data$total.cost.total.cost.parent.time
+  #     
+  #     protocol2PieLabels <- c("Total cost of medications", "Total cost of professional time", "Total cost of parent time")
+  #     #values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time
+  #     output$protocol2Pie <- renderPlotly({
+  #       
+  #       pr2values <- c("10","30","60")
+  #       
+  #       plot_ly(type="pie",values = pr1values, labels = protocol2PieLabels, textinfo="label+value+percent")
+  #     })
+  #     
+  #     
+  #   }
+  #   
+  #   
+  # })
+  ##############
+  ### Plot 3 ###
+  ##############
+  
+  # observe({
+  #   
+  # #  protocol3.data <- values$protocol.data
+  #   
+  #   if(length(protocol3.data) > 0){
+  #     
+  #     print(length(protocol3.data))
+  #           
+  #     # Bar Graph
+  #     values$pr3.total.explicit.cost <- protocol3.data$total.explicit.cost
+  #     values$pr3.total.implicit.cost <- protocol3.data$total.implicit.cost
+  #     values$pr3.total.combined.cost <- values$pr3.total.explicit.cost + values$pr3.total.implicit.cost
+  #     
+  #     
+  #     
+  #     # Pie Chart
+  #     values$pr3.total.cost.medications <-  protocol3.data$total.cost.medications
+  #     values$pr3.total.cost.professional.time <- protocol3.data$total.cost.professional.time
+  #     values$pr3.total.cost.parent.time <- protocol3.data$total.cost.total.cost.parent.time
+  #     
+  #     protocol3PieLabels <- c("Total cost of medications", "Total cost of professional time", "Total cost of parent time")
+  #     #values$pr1.total.cost.medications, values$pr1.total.cost.professional.time, values$pr1.total.cost.parent.time
+  #     output$protocol3Pie <- renderPlotly({
+  #       
+  #       pr3values <- c("10","30","60")
+  #       
+  #       plot_ly(type="pie",values = pr3values, labels = protocol3PieLabels, textinfo="label+value+percent")
+  #     })
+  #     
+  #     
+  #   }
+  #   
+  
+  #  })
   
   
 })

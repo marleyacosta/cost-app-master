@@ -1424,6 +1424,8 @@ shinyServer(function(input, output, session) {
         pie <- ggplot(data, aes(x = factor(1))) +
           geom_bar(width = 1)
         pie + coord_polar(theta = "y") + theme_void()
+        
+        pie
       })
       
     }

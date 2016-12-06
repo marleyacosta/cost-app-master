@@ -227,10 +227,10 @@ tabsetPanel(id = "protocol.comparison",
                        column(4, offset= 0.5,
                               br(),
                               # download Panel
-                              wellPanel(
+                              
                                 #plotOutput("protocol1Bar"),
                                 plotOutput("protocol1Pie")
-                              )
+                            
                        ),
                        column(4, offset= 0.5,
                               br(),

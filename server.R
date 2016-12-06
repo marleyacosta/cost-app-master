@@ -844,19 +844,11 @@ shinyServer(function(input, output, session) {
     {
       
       if(length(values$protocol.data) > 0)
-<<<<<<< HEAD
         
         shinyjs::enable("upload.protocol1")
       
       else 
         
-=======
-        
-        shinyjs::enable("upload.protocol1")
-      
-      else 
-        
->>>>>>> origin/master
         shinyjs::disable("upload.protocol1")
     }  
     
@@ -960,7 +952,6 @@ shinyServer(function(input, output, session) {
       if(input$upload.options.prt1 == "upload.just.saved")
         
         values$protocol1.data <- values$protocol.data 
-<<<<<<< HEAD
       
       else # input$upload.options.prt1 = "upload.from.rds"
         
@@ -988,35 +979,6 @@ shinyServer(function(input, output, session) {
       
       shinyjs::hide(id = "empty.protocol1")  
       
-=======
-      
-      else # input$upload.options.prt1 = "upload.from.rds"
-        
-      {
-        
-        if (!is.null(input$file.protocol1)){
-          
-          values$protocol1.data <- UploadProtocolFromRDSToList(input$file.protocol1)
-          shinyjs::hide(id = "RDSfile1")
-        }
-        
-      } # close else
-      
-      
-      if(length(values$protocol1.data) == 0){
-        
-        print("The list is empty")
-        
-        shinyjs::show(id = "empty.protocol1")
-        
-        return()
-        
-      }
-      
-      
-      shinyjs::hide(id = "empty.protocol1")  
-      
->>>>>>> origin/master
       # Protocol Name
       
       output$protocol1.name <- renderText({
@@ -1430,20 +1392,10 @@ shinyServer(function(input, output, session) {
   ##############
   observe({
     
-<<<<<<< HEAD
     
     if(length(values$protocol1.data) > 0){
       
 
-=======
-    # protocol1.data <- values$protocol.data
-    
-    print(values$protocol1.data)
-    
-    if(length(values$protocol1.data) > 0){
-      
-      print("inside the plot code")
->>>>>>> origin/master
       
       
       # Bar Graph
@@ -1454,11 +1406,10 @@ shinyServer(function(input, output, session) {
       
       output$protocol1Bar <- renderPlot({
         
-        some.data <- rnorm(values$pr1.total.explicit.cost, values$pr1.total.implicit.cost, values$pr1.total.combined.cost)
-        names(some.data) <- c("Total explicit cost", "Total implicit cost", "Total combined cost.")
+        some.data <- rnorm(10, 4, 1.5)
+        names(some.data) <- c("Total explicit cost", "Total implicit cost")
         # Render a barplot
         barplot(some.data)
-        
       })
       
       # Pie Chart
@@ -1466,16 +1417,17 @@ shinyServer(function(input, output, session) {
       values$pr1.total.cost.professional.time <- values$protocol1.data$total.cost.professional.time
       values$pr1.total.cost.parent.time <- values$protocol1.data$total.cost.total.cost.parent.time
       
+      output$fixPay <- renderText({
+        paste("test")
+        })
       
       output$protocol1Pie <- renderPlot({
-        
-        
-        data <- data.frame(origin=c('with','without'),value=c(24536,50456)) 
+        USPersonalExpenditure <- data.frame("Categorie"= rownames(USPersonalExpenditure), USPersonalExpenditure)
+        data <- USPersonalExpenditure[,c('Categorie', 'X1960')]
         
         pie <- ggplot(data, aes(x = factor(1))) +
           geom_bar(width = 1)
         pie + coord_polar(theta = "y") + theme_void()
-        
       })
       
       

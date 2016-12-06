@@ -237,6 +237,7 @@ tabsetPanel(id = "protocol.comparison",
                               # download Panel
                               wellPanel(
                                 
+                                plotOutput("protocol2Bar"),
                                 plotOutput("protocol2Pie")
                               )
                        ),
@@ -245,6 +246,7 @@ tabsetPanel(id = "protocol.comparison",
                               # download Panel
                               wellPanel(
                                 
+                                plotOutput("protocol3Bar"),
                                 plotOutput("protocol3Pie")
                               )
                        )

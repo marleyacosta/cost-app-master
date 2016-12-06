@@ -1395,9 +1395,6 @@ shinyServer(function(input, output, session) {
     
     if(length(values$protocol1.data) > 0){
       
-
-      
-      
       # Bar Graph
       values$pr1.total.explicit.cost <- values$protocol1.data$total.explicit.cost
       values$pr1.total.implicit.cost <- values$protocol1.data$total.implicit.cost
@@ -1411,6 +1408,8 @@ shinyServer(function(input, output, session) {
         # Render a barplot
         barplot(some.data)
       })
+      
+      
       
       # Pie Chart
       values$pr1.total.cost.medications <-  values$protocol1.data$total.cost.medications
